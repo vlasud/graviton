@@ -8,6 +8,9 @@
 
 class Renderer final
 {
+    glm::mat4 view;
+    glm::mat4 projection;
+    uint16_t screenWidth, screenHeight;
     std::vector<std::unique_ptr<BaseMesh>> meshes;
     std::unique_ptr<Shader> meshShader;
 
@@ -16,16 +19,14 @@ class Renderer final
     Renderer& operator = (const Renderer&) = delete;
     Renderer& operator = (Renderer&&) = delete;
 
-    glm::mat4 view;
-    glm::mat4 projection;
-
-    void drawMesh(double delta_time);
+    void drawMeshes(double delta_time);
 
 public:
 
-    Renderer(int width, int height);
+    Renderer();
     ~Renderer();
 
     void act(double delta_time);
     void addMesh(BaseMesh* mesh);
+    void setScreenSize(uint16_t width, uint16_t height);
 };

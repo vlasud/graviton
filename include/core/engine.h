@@ -15,7 +15,7 @@ struct EngineInitDesc
     std::string title;
 };
 
-// Meyers singleton
+
 class Engine final
 {
     GLFWwindow *window;
@@ -23,16 +23,20 @@ class Engine final
     std::unique_ptr<Renderer> renderer;
 
     Engine();
+    ~Engine();
     Engine(const Engine&) = delete;
     Engine(Engine&&) = delete;
-    ~Engine();
     Engine& operator = (const Engine&) = delete;
     Engine& operator = (Engine&&) = delete;
+
+    bool is_run_allowed() const;
 
 public:
 
     static Engine* get();
 
     void run();
-    bool initEngine(const EngineInitDesc &init_desc);
+    void init(const EngineInitDesc &init_desc);
+
+    friend void window_resize_callback(GLFWwindow* window, int width, int height);
 };

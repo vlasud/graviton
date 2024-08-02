@@ -11,6 +11,9 @@
 static void window_resize_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
+
+    auto engine = Engine::get();
+    engine->renderer->setScreenSize(width, height);
 }
 
 
@@ -23,7 +26,7 @@ Engine* Engine::get()
 }
 
 Engine::Engine() :
-    window(nullptr)
+    window(nullptr), renderer(std::make_unique<Renderer>())
 {
 }
 
@@ -33,16 +36,18 @@ Engine::~Engine()
     glfwTerminate();
 }
 
+bool Engine::is_run_allowed() const
+{
+    return window;
+}
+
 void Engine::run()
 {
-    if (!window || !scene.get() || !renderer.get())
-    {
-        // TODO: handle
-        return;
-    }
+    if (!is_run_allowed())
+        throw std::runtime_error("engine run not allowed");
 
-    static double prevTime = glfwGetTime();
-    static double curTime = glfwGetTime();
+    double prevTime = glfwGetTime();
+    double curTime = prevTime;
 
     while (!glfwWindowShouldClose(window))
     {
@@ -52,17 +57,17 @@ void Engine::run()
         double deltaTime = curTime - prevTime;
         prevTime = curTime;
 
-        scene->act(deltaTime);
+        //scene->act(deltaTime);
         renderer->act(deltaTime);
 
         glfwSwapBuffers(window);
     }
 }
 
-bool Engine::initEngine(const EngineInitDesc& init_desc)
+void Engine::init(const EngineInitDesc& init_desc)
 {
     if (!glfwInit())
-        return false;
+        throw std::runtime_error("glfw init error");
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -74,7 +79,7 @@ bool Engine::initEngine(const EngineInitDesc& init_desc)
     if (!window)
     {
         glfwTerminate();
-        return false;
+        throw std::runtime_error("glfw create window error");
     }
 
     glfwSetWindowSizeCallback(window, window_resize_callback);
@@ -84,23 +89,7 @@ bool Engine::initEngine(const EngineInitDesc& init_desc)
 
     glEnable(GL_DEPTH_TEST);
 
-    scene = std::make_unique<Scene>();
-    if (!scene.get())
-    {
-        // TODO: handle
-        return false;
-    }
+    //scene = std::make_unique<Scene>();
 
-    renderer = std::make_unique<Renderer>(init_desc.windowSize[0], init_desc.windowSize[1]);
-    if (!renderer.get())
-    {
-        // TODO: handle
-        return false;
-    }
-
-    GLenum error = glGetError();
-    if (error != GL_NO_ERROR)
-        std::cout << "OpenGL error: " << error << std::endl;
-
-    return true;
+    renderer->setScreenSize(init_desc.windowSize[0], init_desc.windowSize[1]);
 }
