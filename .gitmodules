@@ -5,6 +5,6 @@
 [submodule "third_party/glm"]
 	path = third_party/glm
 	url = git@github.com:g-truc/glm.git
-[submodule "third_party/eastl"]
-    path = third_party/eastl
-	url = git@github.com:electronicarts/EASTL.git
+[submodule "EASTL"]
+	path = EASTL
+	url = https://github.com/electronicarts/EASTL.git
