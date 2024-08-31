@@ -2,8 +2,8 @@
 
 #include <core/object.h>
 
-#include <string>
-#include <vector>
+#include <EASTL/string.h>
+#include <EASTL/vector.h>
 
 class Scene final
 {
@@ -13,8 +13,8 @@ class Scene final
     Scene& operator = (const Scene&) = delete;
     Scene& operator = (Scene&&) = delete;
 
-    std::string name;
-    std::vector<Object> objectsPool;
+    eastl::string name;
+    eastl::vector<Object> objectsPool;
 
 public:
 

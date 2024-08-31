@@ -5,22 +5,22 @@
 
 #include <core/scene.h>
 #include <render/renderer.h>
-#include <string>
-#include <memory>
+#include <EASTL/string.h>
+#include <EASTL/unique_ptr.h>
 
 
 struct EngineInitDesc
 {
     uint32_t windowSize[2];
-    std::string title;
+    eastl::string title;
 };
 
 
 class Engine final
 {
     GLFWwindow *window;
-    std::unique_ptr<Scene> scene;
-    std::unique_ptr<Renderer> renderer;
+    eastl::unique_ptr<Scene> scene;
+    eastl::unique_ptr<Renderer> renderer;
 
     Engine();
     ~Engine();

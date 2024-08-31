@@ -1,8 +1,8 @@
 #include <input/input.h>
-#include <vector>
+#include <EASTL/vector.h>
 
 
-std::vector<InputAction> inputActions;
+eastl::vector<InputAction> inputActions;
 
 
 void engine_input_init(GLFWwindow* window)

@@ -3,10 +3,6 @@
 #include <render/renderer.h>
 #include <input/input.h>
 
-#include <chrono>
-#include <iostream>
-#include <functional>
-
 
 static void window_resize_callback(GLFWwindow* window, int width, int height)
 {
@@ -26,7 +22,7 @@ Engine* Engine::get()
 }
 
 Engine::Engine() :
-    window(nullptr), renderer(std::make_unique<Renderer>())
+    window(nullptr), renderer(eastl::make_unique<Renderer>())
 {
 }
 
@@ -44,7 +40,7 @@ bool Engine::is_run_allowed() const
 void Engine::run()
 {
     if (!is_run_allowed())
-        throw std::runtime_error("engine run not allowed");
+        return;
 
     double prevTime = glfwGetTime();
     double curTime = prevTime;
@@ -67,7 +63,7 @@ void Engine::run()
 void Engine::init(const EngineInitDesc& init_desc)
 {
     if (!glfwInit())
-        throw std::runtime_error("glfw init error");
+        return;
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -79,7 +75,7 @@ void Engine::init(const EngineInitDesc& init_desc)
     if (!window)
     {
         glfwTerminate();
-        throw std::runtime_error("glfw create window error");
+        return;
     }
 
     glfwSetWindowSizeCallback(window, window_resize_callback);
@@ -92,4 +88,10 @@ void Engine::init(const EngineInitDesc& init_desc)
     //scene = std::make_unique<Scene>();
 
     renderer->setScreenSize(init_desc.windowSize[0], init_desc.windowSize[1]);
+}
+
+// https://github.com/electronicarts/EASTL/blob/master/doc/CMake/EASTL_Project_Integration.md#setting-up-your-code
+void* __cdecl operator new[](size_t size, const char* name, int flags, unsigned debugFlags, const char* file, int line)
+{
+	return new uint8_t[size];
 }
