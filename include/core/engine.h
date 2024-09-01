@@ -6,22 +6,16 @@
 #include <core/scene.h>
 #include <render/renderer.h>
 #include <utils/singleton.h>
+#include <core/EngineInitDescription.h>
 #include <EASTL/string.h>
 #include <EASTL/unique_ptr.h>
-
-
-struct EngineInitDesc
-{
-    uint32_t windowSize[2];
-    eastl::string title;
-};
 
 
 class Engine final : public Singleton<Engine>
 {
 public:
     void run();
-    void init(const EngineInitDesc &init_desc);
+    void init(const EngineInitDescription &init_desc);
 
     friend class Singleton<Engine>;
     friend void window_resize_callback(GLFWwindow* window, int width, int height);
