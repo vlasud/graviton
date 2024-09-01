@@ -3,9 +3,9 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
-#include <core/scene.h>
-#include <render/renderer.h>
-#include <utils/singleton.h>
+#include <core/Scene.h>
+#include <render/Renderer.h>
+#include <utils/Singleton.h>
 #include <core/EngineInitDescription.h>
 #include <EASTL/string.h>
 #include <EASTL/unique_ptr.h>

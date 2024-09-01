@@ -1,4 +1,4 @@
-#include <core/scene.h>
+#include <core/Scene.h>
 
 Scene::~Scene()
 {

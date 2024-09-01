@@ -1,7 +1,7 @@
-#include <core/engine.h>
+#include <core/Engine.h>
 
-#include <render/renderer.h>
-#include <input/input.h>
+#include <render/Renderer.h>
+#include <input/Input.h>
 
 
 static void window_resize_callback(GLFWwindow* window, int width, int height)

@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <string>
-#include <render/vbo.h>
+#include <render/Vbo.h>
 #include <memory>
 
 class BaseMesh

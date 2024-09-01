@@ -1,6 +1,6 @@
 #pragma once
 
-#include <core/object.h>
+#include <core/Object.h>
 
 #include <EASTL/string.h>
 #include <EASTL/vector.h>

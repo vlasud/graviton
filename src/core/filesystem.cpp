@@ -1,5 +1,5 @@
-#include <core/filesystem.h>
-#include <utils/stringUtils.h>
+#include <core/Filesystem.h>
+#include <utils/StringUtils.h>
 #include <cassert>
 #include <fstream>
 
