@@ -8,17 +8,8 @@ static void window_resize_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 
-    auto engine = Engine::get();
+    auto engine = Engine::GetInstance();
     engine->renderer->setScreenSize(width, height);
-}
-
-
-Engine* Engine::get()
-{
-    static Engine* engine = nullptr;
-    if (!engine)
-        engine = new Engine;
-    return engine;
 }
 
 Engine::Engine() :
