@@ -60,8 +60,8 @@ void Engine::init(const EngineInitDescription& init_desc)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(init_desc.m_windowSize[0], init_desc.m_windowSize[1],
-        init_desc.m_windowTitle.c_str(), NULL, NULL);
+    window = glfwCreateWindow(init_desc.windowWidth, init_desc.windowHeight,
+        init_desc.windowTitle.c_str(), NULL, NULL);
 
     if (!window)
     {
@@ -78,7 +78,7 @@ void Engine::init(const EngineInitDescription& init_desc)
 
     //scene = std::make_unique<Scene>();
 
-    renderer->setScreenSize(init_desc.m_windowSize[0], init_desc.m_windowSize[1]);
+    renderer->setScreenSize(init_desc.windowWidth, init_desc.windowHeight);
 }
 
 // https://github.com/electronicarts/EASTL/blob/master/doc/CMake/EASTL_Project_Integration.md#setting-up-your-code
