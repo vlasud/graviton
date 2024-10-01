@@ -1,9 +1,9 @@
-#include <render/shader.h>
+#include <render/Shader.h>
 
-#include <fstream>
-#include <cassert>
-#include <iostream>
 
+namespace graviton
+{
+/*
 Shader::Shader(const std::vector<std::string>& shader_files) :
     programId(0)
 {
@@ -85,3 +85,5 @@ void Shader::use()
 {
     glUseProgram(programId);
 }
+*/
+}; //graviton

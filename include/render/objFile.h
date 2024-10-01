@@ -1,16 +1,22 @@
 #pragma once
 
 #include <render/Renderer.h>
-#include <string>
-#include <vector>
 
-struct ObjFile
+#include <EASTL/string.h>
+#include <EASTL/vector.h>
+
+namespace graviton
 {
-    std::vector<float> v;
-    std::vector<float> vn;
-    std::vector<float> vt;
-    std::vector<uint32_t> fv;
 
-    ObjFile(const std::string &path_to_file);
+class ObjFile
+{
+public:
+    explicit ObjFile(const eastl::string_view pathToFile);
     ~ObjFile();
+
+private:
+    eastl::vector<float> m_vertices;
+    eastl::vector<float> m_vertexNormals;
 };
+
+}; // graviton

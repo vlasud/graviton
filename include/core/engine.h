@@ -1,30 +1,27 @@
 #pragma once
 
-#include <glad/gl.h>
-#include <GLFW/glfw3.h>
-
-#include <core/Scene.h>
 #include <render/Renderer.h>
 #include <utils/Singleton.h>
 #include <core/EngineInitDescription.h>
+
+#include <glad/gl.h>
+#include <GLFW/glfw3.h>
 #include <EASTL/string.h>
 #include <EASTL/unique_ptr.h>
 
+namespace graviton
+{
 
 class Engine final : public Singleton<Engine>
 {
 public:
     void run();
-    void init(const EngineInitDescription &init_desc);
+    void init(const EngineInitDescription& initDescription);
 
     friend class Singleton<Engine>;
-    friend void window_resize_callback(GLFWwindow* window, int width, int height);
+    friend void windowResizeCallback(GLFWwindow* windowPtr, int width, int height);
 
 private:
-    GLFWwindow *window;
-    eastl::unique_ptr<Scene> scene;
-    eastl::unique_ptr<Renderer> renderer;
-
     Engine();
     ~Engine();
     Engine(const Engine&) = delete;
@@ -32,5 +29,10 @@ private:
     Engine& operator = (const Engine&) = delete;
     Engine& operator = (Engine&&) = delete;
 
-    bool is_run_allowed() const;
+    bool isRunAllowed() const;
+
+    GLFWwindow* m_windowPtr;
+    eastl::unique_ptr<Renderer> m_renderer;
 };
+
+}; // graviton

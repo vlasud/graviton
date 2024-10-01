@@ -1,39 +1,31 @@
 #pragma once
 
-#include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <string>
-#include <render/Vbo.h>
-#include <memory>
+#include <EASTL/string.h>
+#include <EASTL/vector.h>
+#include <EASTL/unique_ptr.h>
+
+namespace graviton
+{
 
 class BaseMesh
 {
+public:
+    BaseMesh(const eastl::string_view pathToObj, const glm::mat4 transform = glm::mat4(1));
+    virtual ~BaseMesh();
+
+    void setShouldDraw(bool isShouldDraw);
+    bool isShouldDraw() const;
+    virtual void draw(double deltaTime, uint32_t shaderProgramId);
 
 protected:
-    uint32_t VAO;
 
-    std::unique_ptr<VBO<float>> vertexVBO;
-    std::unique_ptr<VBO<float>> colorVBO;
-    std::unique_ptr<VBO<uint32_t>> indexVBO;
-
-    std::vector<float> vertexes;
-    std::vector<float> vertexesTexturePos;
-    std::vector<float> colors;
-    std::vector<uint32_t> indexes;
-
-    glm::mat4 transform;
-    bool shouldDraw;
+    glm::mat4 m_transform;
+    bool m_isShouldDraw;
 
     BaseMesh(const BaseMesh&) = delete;
     BaseMesh& operator = (const BaseMesh&) = delete;
-
-public:
-
-    BaseMesh(const std::string& path_to_obj, const glm::mat4 transform = glm::mat4(1));
-    virtual ~BaseMesh();
-
-    void setShouldDraw(bool value);
-    bool isShouldDraw() const { return shouldDraw; };
-    virtual void draw(double delta_time, uint32_t shader_program_id);
 };
+
+}; //graviton

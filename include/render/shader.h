@@ -3,18 +3,23 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
-#include <string>
-#include <vector>
+#include <EASTL/string.h>
+#include <EASTL/vector.h>
 
+namespace graviton
+{
+/*
 class Shader
 {
-    uint32_t programId;
-
 public:
-
-    explicit Shader(const std::vector<std::string>& shader_files);
+    explicit Shader(const eastl::vector<eastl::string>& shader_files);
     virtual ~Shader();
 
     void use();
-    __forceinline uint32_t getProgramId() const { return programId; }
+    uint32_t getProgramId() const { return programId; }
+
+private:
+    uint32_t m_programId;
 };
+*/
+}; // graviton

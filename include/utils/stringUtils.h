@@ -1,9 +1,11 @@
 #pragma once
 
-#include <string>
-#include <vector>
+#include <EASTL/string.h>
+#include <EASTL/vector.h>
 
-namespace utils
+namespace graviton
 {
-    void split_string(const std::string& str, char delim, std::vector<std::string>& elems);
-};
+
+void split(const eastl::string_view source, char delimiter, eastl::vector<eastl::string>& out);
+
+}; //graviton

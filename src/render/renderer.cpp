@@ -1,22 +1,13 @@
-#include <render/renderer.h>
+#include <render/Renderer.h>
 #include <render/shader.h>
 
+namespace graviton
+{
 
 Renderer::Renderer() :
-    view(glm::mat4(1)), screenWidth(640), screenHeight(480),
-    projection(glm::perspective(45.0f, (float)screenWidth / (float)screenHeight, 0.1f, 100.0f))
+    m_view(glm::mat4(1)), m_screenWidth(640), m_screenHeight(480),
+    m_projection(glm::perspective(45.0f, (float)m_screenWidth / (float)m_screenHeight, 0.1f, 100.0f))
 {
-    /*
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
-    projection = glm::perspective( 45.0f, (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
-
-    meshes.push_back(std::make_unique<BaseMesh>("../../../assets/duck.obj"));
-    meshes.push_back(std::make_unique<BaseMesh>("../../../assets/fish.obj", glm::translate(glm::mat4(1), glm::vec3(0.5, 0.5, -1))));
-
-    meshShader = std::make_unique<Shader>(std::vector<std::string>{
-        "../../../graviton/shaders/test.glsl"
-    });
-    */
 }
 
 Renderer::~Renderer()
@@ -25,40 +16,27 @@ Renderer::~Renderer()
 
 void Renderer::setScreenSize(uint16_t width, uint16_t height)
 {
-    screenHeight = height;
-    screenWidth  = width;
+    m_screenHeight = height;
+    m_screenWidth = width;
 }
 
-void Renderer::act(double delta_time)
+void Renderer::act(double deltaTime)
 {
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    drawMeshes(delta_time);
+    drawMeshes(deltaTime);
 }
 
-void Renderer::addMesh(BaseMesh* mesh)
+void Renderer::addMesh(BaseMesh* meshPtr)
 {
-    if (!mesh)
+    if (!meshPtr)
         return;
 }
 
-void Renderer::drawMeshes(double delta_time)
+void Renderer::drawMeshes(double deltaTime)
 {
-    if (!meshShader)
-        return;
 
-    meshShader->use();
-
-    GLuint viewLoc = glGetUniformLocation(meshShader->getProgramId(), "view");
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
-    GLuint projectionLoc = glGetUniformLocation(meshShader->getProgramId(), "projection");
-    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-    for (auto& mesh : meshes)
-    {
-        if (mesh->isShouldDraw())
-            mesh->draw(delta_time, meshShader->getProgramId());
-    }
 }
+
+}; // graviton

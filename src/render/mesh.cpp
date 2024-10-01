@@ -1,52 +1,32 @@
-#include <render/mesh.h>
-
+#include <render/Mesh.h>
+#include <render/ObjFile.h>
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
-#include <cassert>
-#include <render/objFile.h>
-#include <memory>
 
-
-BaseMesh::BaseMesh(const std::string& path_to_obj, const glm::mat4 transform) :
-    transform(transform), shouldDraw(true)
+namespace graviton
 {
-    auto obj = std::make_unique<ObjFile>(path_to_obj);
 
-    vertexes = std::move(obj->v);
-    vertexesTexturePos = std::move(obj->vt);
-    indexes = std::move(obj->fv);
-
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-
-    vertexVBO = std::make_unique<VBO<float>>(GL_ARRAY_BUFFER, vertexes);
-    vertexVBO->setVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-    glEnableVertexAttribArray(0);
-
-    indexVBO  = std::make_unique<VBO<uint32_t>>(GL_ELEMENT_ARRAY_BUFFER, indexes);
-
-    glBindVertexArray(0);
+BaseMesh::BaseMesh(const eastl::string_view pathToObj, const glm::mat4 transform) :
+    m_transform(transform), m_isShouldDraw(true)
+{
 }
 
 BaseMesh::~BaseMesh()
 {
-    glDeleteVertexArrays(1, &VAO);
 }
 
-void BaseMesh::draw(double delta_time, uint32_t shader_program_id)
+void BaseMesh::draw(double deltaTime, uint32_t shader_program_id)
 {
-    transform = glm::rotate(transform, (float)delta_time, glm::vec3(0, 1, 0));
-
-    GLuint transformLoc = glGetUniformLocation(shader_program_id, "transform");
-    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
-
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, indexes.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
 }
 
-void BaseMesh::setShouldDraw(bool value)
+void BaseMesh::setShouldDraw(bool isShouldDraw)
 {
-    shouldDraw = value;
+    m_isShouldDraw = isShouldDraw;
 }
+
+bool BaseMesh::isShouldDraw() const
+{
+    return m_isShouldDraw;
+}
+
+}; // graviton

@@ -1,42 +1,42 @@
 #include <core/Engine.h>
-
 #include <render/Renderer.h>
-#include <input/Input.h>
 
+namespace graviton
+{
 
-static void window_resize_callback(GLFWwindow* window, int width, int height)
+static void windowResizeCallback(GLFWwindow* windowPtr, int width, int height)
 {
     glViewport(0, 0, width, height);
 
     auto engine = Engine::GetInstance();
-    engine->renderer->setScreenSize(width, height);
+    engine->m_renderer->setScreenSize(width, height);
 }
 
 Engine::Engine() :
-    window(nullptr), renderer(eastl::make_unique<Renderer>())
+    m_windowPtr(nullptr), m_renderer(eastl::make_unique<Renderer>())
 {
 }
 
 Engine::~Engine()
 {
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(m_windowPtr);
     glfwTerminate();
 }
 
-bool Engine::is_run_allowed() const
+bool Engine::isRunAllowed() const
 {
-    return window;
+    return m_windowPtr;
 }
 
 void Engine::run()
 {
-    if (!is_run_allowed())
+    if (!isRunAllowed())
         return;
 
     double prevTime = glfwGetTime();
     double curTime = prevTime;
 
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(m_windowPtr))
     {
         glfwPollEvents();
 
@@ -44,14 +44,13 @@ void Engine::run()
         double deltaTime = curTime - prevTime;
         prevTime = curTime;
 
-        //scene->act(deltaTime);
-        renderer->act(deltaTime);
+        m_renderer->act(deltaTime);
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(m_windowPtr);
     }
 }
 
-void Engine::init(const EngineInitDescription& init_desc)
+void Engine::init(const EngineInitDescription& initDescription)
 {
     if (!glfwInit())
         return;
@@ -60,29 +59,29 @@ void Engine::init(const EngineInitDescription& init_desc)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    window = glfwCreateWindow(init_desc.windowWidth, init_desc.windowHeight,
-        init_desc.windowTitle.c_str(), NULL, NULL);
+    m_windowPtr = glfwCreateWindow(initDescription.windowWidth, initDescription.windowHeight,
+        initDescription.windowTitle.c_str(), NULL, NULL);
 
-    if (!window)
+    if (!m_windowPtr)
     {
         glfwTerminate();
         return;
     }
 
-    glfwSetWindowSizeCallback(window, window_resize_callback);
+    glfwSetWindowSizeCallback(m_windowPtr, windowResizeCallback);
 
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(m_windowPtr);
     gladLoadGL(glfwGetProcAddress);
 
     glEnable(GL_DEPTH_TEST);
 
-    //scene = std::make_unique<Scene>();
-
-    renderer->setScreenSize(init_desc.windowWidth, init_desc.windowHeight);
+    m_renderer->setScreenSize(initDescription.windowWidth, initDescription.windowHeight);
 }
+
+}; // graviton
 
 // https://github.com/electronicarts/EASTL/blob/master/doc/CMake/EASTL_Project_Integration.md#setting-up-your-code
 void* __cdecl operator new[](size_t size, const char* name, int flags, unsigned debugFlags, const char* file, int line)
 {
-	return new uint8_t[size];
+    return new uint8_t[size];
 }

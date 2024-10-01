@@ -1,12 +1,34 @@
-#include <utils/stringUtils.h>
-#include <sstream>
+#include <utils/StringUtils.h>
 
-
-void utils::split_string(const std::string& str, char delim, std::vector<std::string>& elems)
+namespace graviton
 {
-    elems.clear();
-    std::stringstream ss(str);
-    std::string part;
-    while (std::getline(ss, part, delim))
-        elems.push_back(part);
+
+void split(const eastl::string_view source, char delimiter, eastl::vector<eastl::string>& out)
+{
+    out.clear();
+
+    if (source.empty())
+        return;
+
+    uint32_t leftIndex = 0;
+    uint32_t rightIndex = 0;
+    uint32_t lastIndex = source.size() - 1;
+
+    while (rightIndex <= lastIndex)
+    {
+        if (source[rightIndex] == delimiter)
+        {
+            out.emplace_back(source.substr(leftIndex, rightIndex - leftIndex));
+            leftIndex = rightIndex + 1;
+        }
+        else if (rightIndex == lastIndex)
+        {
+            out.emplace_back(source.substr(leftIndex, rightIndex - leftIndex + 1));
+            break;
+        }
+
+        ++rightIndex;
+    }
 }
+
+}; //graviton
