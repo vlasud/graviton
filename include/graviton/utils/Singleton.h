@@ -5,6 +5,8 @@
 #define REGISTER_SINGLETON(name)\
     friend class Singleton<name>;\
     name() = default;\
+    name(const name&) = default;\
+    name(name&&) = default;
 
 namespace graviton
 {

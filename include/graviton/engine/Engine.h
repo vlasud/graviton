@@ -10,7 +10,6 @@ class Engine final : public Singleton<Engine>
 REGISTER_SINGLETON(Engine)
 
 public:
-    int x;
 
 private:
 };
