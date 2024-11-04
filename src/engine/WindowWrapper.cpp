@@ -3,7 +3,7 @@
 namespace graviton
 {
 
-WindowWrapper::WindowWrapper(uint32_t width, uint32_t height, eastl::string_view title)
+WindowWrapper::WindowWrapper(uint32_t width, uint32_t height, std::string_view title)
 {
     m_window = glfwCreateWindow(width, height, title.data(), NULL, NULL);
     if (!m_window)

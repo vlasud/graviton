@@ -7,10 +7,18 @@
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
-#include <EASTL/unique_ptr.h>
+#include <memory>
 
 namespace graviton
 {
+
+struct GameLoopTickData
+{
+    uint32_t maxFps{144};
+    double previousTickTime{0.0};
+    double currentTickTime{0.0};
+    bool isFirstTick{true};
+};
 
 class Engine final : public Singleton<Engine>
 {
@@ -21,7 +29,12 @@ public:
     void run();
 
 private:
-    eastl::unique_ptr<WindowWrapper> m_window;
+    void manageTicksFrequency();
+    void tick(double deltaTime);
+
+    std::unique_ptr<WindowWrapper> m_window;
+
+    GameLoopTickData m_gameLoopTickData;
 };
 
 }; // graviton

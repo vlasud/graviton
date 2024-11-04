@@ -1,6 +1,6 @@
 #pragma once
 
-#include <EASTL/unique_ptr.h>
+#include <memory>
 
 #define REGISTER_SINGLETON(name)\
     friend class Singleton<name>;\
@@ -34,10 +34,10 @@ protected:
     virtual ~Singleton() = default;
 
 private:
-    static eastl::unique_ptr<T> s_instance;
+    static std::unique_ptr<T> s_instance;
 };
 
 template <typename T>
-eastl::unique_ptr<T> Singleton<T>::s_instance;
+std::unique_ptr<T> Singleton<T>::s_instance;
 
 }; // graviton
