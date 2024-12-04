@@ -4,10 +4,10 @@
 #include <graviton/core/Vector.h>
 
 #ifdef _WIN32
+#include <windows.h>
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-    graviton::Vector<int> a;
-    graviton::Vector<int> b(a);
-    return 0;
+    graviton::ApplicationArguments arguments;
+    return graviton::GravitonEntry(arguments);
 }
 #endif
