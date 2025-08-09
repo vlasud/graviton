@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 4.0)
+cmake_minimum_required(VERSION 3.16)
 
 project(graviton_editor)
 
-file(GLOB_RECURSE SRC_FILES *.cpp *.h)
+add_executable(${PROJECT_NAME}
+    Main.cpp
+)
 
-add_executable(${PROJECT_NAME} ${SRC_FILES}
-        ../core/util/String.h
-        ../core/util/String.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE graviton_core)
