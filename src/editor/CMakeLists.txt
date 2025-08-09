@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 4.0)
 
 project(graviton_editor)
 
-file(GLOB_RECURSE SRC_FILES *.cpp)
+file(GLOB_RECURSE SRC_FILES *.cpp *.h)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES}
         ../core/util/String.h
