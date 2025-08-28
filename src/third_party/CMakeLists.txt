@@ -7,6 +7,7 @@ add_library(${PROJECT_NAME} STATIC
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC glad/include)
+target_include_directories(${PROJECT_NAME} PUBLIC glad/include)
 
 add_subdirectory(glfw)
 target_include_directories(${PROJECT_NAME} PUBLIC glfw/include)
