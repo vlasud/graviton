@@ -6,30 +6,31 @@
 namespace Graviton
 {
 
-static void framebuffer_size_callback(GLFWwindow*, int w, int h)
+static void framebufferSizeCallback(GLFWwindow*, const int32_t width, const int32_t height)
 {
-  glViewport(0, 0, w, h);
+  glViewport(0, 0, width, height);
 }
 
-void startEngine()
+void startEngine(const EngineInitializationParams& params)
 {
   if (!glfwInit())
   {
+    return;
   }
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  GLFWwindow* win = glfwCreateWindow(800, 600, "GLFW Window", nullptr, nullptr);
-  if (!win)
+  GLFWwindow* window = glfwCreateWindow(params.windowWidth, params.windowHeight, params.windowTitle.c_str(), nullptr, nullptr);
+  if (!window)
   {
     glfwTerminate();
     return;
   }
 
-  glfwMakeContextCurrent(win);
-  glfwSetFramebufferSizeCallback(win, framebuffer_size_callback);
+  glfwMakeContextCurrent(window);
+  glfwSetFramebufferSizeCallback(window, framebufferSizeCallback);
   glfwSwapInterval(1);
 
   if (!gladLoadGL(glfwGetProcAddress))
@@ -37,17 +38,17 @@ void startEngine()
     return;
   }
 
-  while (!glfwWindowShouldClose(win))
+  while (!glfwWindowShouldClose(window))
   {
     glfwPollEvents();
 
     glClearColor(0.1f, 0.12f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glfwSwapBuffers(win);
+    glfwSwapBuffers(window);
   }
 
-  glfwDestroyWindow(win);
+  glfwDestroyWindow(window);
   glfwTerminate();
 }
 

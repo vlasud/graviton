@@ -2,6 +2,9 @@
 
 int main()
 {
-    Graviton::startEngine();
-    return 0;
+  Graviton::EngineInitializationParams params;
+  params.windowTitle = "Graviton engine";
+
+  Graviton::startEngine(params);
+  return 0;
 }
