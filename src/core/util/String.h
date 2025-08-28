@@ -8,7 +8,7 @@ class String final
 {
 public:
     String() = default;
-    String(const char*);
+    explicit String(const char*);
     String(const String&);
     String(String&&) noexcept;
     ~String();

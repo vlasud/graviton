@@ -6,6 +6,9 @@ add_library(${PROJECT_NAME} STATIC
     Engine.cpp
     Engine.h
 
+    render/Renderer.cpp
+    render/RenderQueue.cpp
+
     util/String.h
     util/String.cpp
 )
