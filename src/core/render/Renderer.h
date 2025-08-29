@@ -13,7 +13,6 @@ public:
   explicit Renderer(uint32_t width, uint32_t height);
 
   void draw();
-  void setMVP(const glm::mat4& mvp) { m_mvp = mvp; }
 
 private:
   void resize(uint32_t width, uint32_t height);
@@ -28,8 +27,6 @@ private:
   GLuint m_vao = 0u;
   GLuint m_vbo = 0u;
   GLuint m_ebo = 0u;
-
-  glm::mat4 m_mvp;
 };
 
 }

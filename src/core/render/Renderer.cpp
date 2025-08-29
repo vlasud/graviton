@@ -57,7 +57,7 @@ void Renderer::draw()
   const GLint location = glGetUniformLocation(m_program, "u_MVP");
   if (location >= 0)
   {
-    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(m_mvp));
+    //glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(m_mvp));
   }
 
   glBindVertexArray(m_vao);

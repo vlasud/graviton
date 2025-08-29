@@ -8,6 +8,8 @@ add_library(${PROJECT_NAME} STATIC
 
     render/Renderer.cpp
     render/RenderQueue.cpp
+    render/Mesh.cpp
+    render/Camera.cpp
 
     util/String.h
     util/String.cpp

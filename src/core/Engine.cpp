@@ -1,5 +1,6 @@
 #include "Engine.h"
 
+#include "render/Mesh.h"
 #include "render/Renderer.h"
 
 #include <glm/gtc/matrix_transform.hpp>
@@ -50,23 +51,11 @@ void startEngine(const EngineInitializationParams& params)
 
   Renderer renderer(params.windowWidth, params.windowHeight);
 
-  auto t0 = std::chrono::high_resolution_clock::now();
+  Mesh mesh("test");
 
   while (!glfwWindowShouldClose(window))
   {
     glfwPollEvents();
-
-    // время
-    auto t  = std::chrono::high_resolution_clock::now();
-    float s = std::chrono::duration<float>(t - t0).count();
-
-    // Матрицы:
-    glm::mat4 model = glm::rotate(glm::mat4(1.0f), s, glm::vec3(0.3f, 1.0f, 0.0f));
-    glm::mat4 view  = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-    glm::mat4 proj  = glm::perspective(glm::radians(60.0f), (float)params.windowWidth/(float)params.windowHeight, 0.1f, 100.0f);
-
-    glm::mat4 mvp = proj * view * model;
-    renderer.setMVP(mvp);
 
     renderer.draw();
 

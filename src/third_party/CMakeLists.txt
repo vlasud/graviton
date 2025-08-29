@@ -19,3 +19,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
 # glm
 add_subdirectory(glm)
 target_include_directories(${PROJECT_NAME} PUBLIC glm)
+
+# tinyobjloader
+add_subdirectory(tinyobjloader)
+target_include_directories(${PROJECT_NAME} PUBLIC tinyobjloader)
