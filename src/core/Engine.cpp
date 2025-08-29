@@ -51,7 +51,7 @@ void startEngine(const EngineInitializationParams& params)
 
   Renderer renderer(params.windowWidth, params.windowHeight);
 
-  Mesh mesh("test");
+  Mesh mesh("D:/graviton/data/cube.obj");
 
   while (!glfwWindowShouldClose(window))
   {
